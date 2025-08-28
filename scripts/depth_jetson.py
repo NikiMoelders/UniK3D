@@ -62,7 +62,6 @@ frame_idx = 0
 
 while True:
     start_time = time.time()
-    # skip frames cheaply
     if frame_idx % step != 0:
         ok = cap.grab()
         if not ok:
@@ -76,13 +75,8 @@ while True:
 
     # YOLO detection
     short_side = min(height, width) if min(height, width) > 0 else 640
-    imgsz = min(640, short_side) #limit max size for speed
-    yres = yolo_model(
-        frame,
-        conf=conf,
-        verbose=False,
-        device=0 if device.type == "cuda" else "cpu"
-    )[0]
+    imgsz = min(640, short_side) 
+    yres = yolo_model(frame,conf=conf,verbose=False,device=0 if device.type == "cuda" else "cpu")[0] # Adding in imgsz=imgsz significantly reduces accuracy
 
     boxes = yres.boxes
     if boxes is None or len(boxes) == 0:

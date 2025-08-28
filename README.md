@@ -1,49 +1,6 @@
-<div align="center">
+# UniDepth + YOLO
 
-# UniK3D: Universal Camera Monocular 3D Estimation
-
-<a href="https://arxiv.org/abs/2503.16591"><img src='https://img.shields.io/badge/arXiv-Paper-red?logo=arxiv&logoColor=white' alt='arXiv'></a>
-<a href='https://lpiccinelli-eth.github.io/pub/unik3d'><img src='https://img.shields.io/badge/Project_Page-Website-green?logo=googlechrome&logoColor=white' alt='Project Page'></a>
-<a href='https://huggingface.co/spaces/lpiccinelli/UniK3D-demo'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Live_Demo-blue'></a>
-
-</div>
-
-<div>
-  <img src="assets/docs/compose.png"  width="100%" alt="Banner 2" align="center">
-</div>
-
-<div>
-  <p></p>
-</div>
-
-> [**UniK3D: Universal Camera Monocular 3D Estimation**](https://lpiccinelli-eth.github.io/pub/unik3d),
-> Luigi Piccinelli, Christos Sakaridis, Mattia Segu, Yung-Hsu Yang, Siyuan Li, Wim Abbeloos, Luc Van Gool,
-> CVPR 2025,
-> *Paper at [arXiv 2503.16591](https://arxiv.org/pdf/2503.16591.pdf)*
-
-
-## News and ToDo
-
-- [ ] Rays to parameters optimization.
-- [x] `21.03.2025`: Gradio demo and [Huggingface Demo](https://huggingface.co/spaces/lpiccinelli/UniK3D-demo).
-- [x] `20.03.2025`: Training and inference code released.
-- [x] `19.03.2025`: Models released.
-- [x] `26.02.2025`: UniK3D is accepted at CVPR 2025!
-
-
-## Visualization
-
-<p align="center">
-  <img src="assets/docs/intro.gif" alt="animated"/>
-</p>
-
-### Single 360 Image
-<p align="center">
-  <img src="assets/docs/venice.gif" alt="animated"/>
-</p>
-
-***Check more results in our [website](https://lpiccinelli-eth.github.io/pub/unik3d/)!***
-
+This repository builds on the work of UniDepth. It is not affiliated with ETH Zurich. Please consider their original [repo](https://github.com/lpiccinelli-eth/UniDepth) and [paper](https://arxiv.org/abs/2502.20110) for more information.
 
 ## Installation
 
