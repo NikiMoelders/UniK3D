@@ -6,6 +6,7 @@ from unik3d.models import UniK3D
 import os
 from pathlib import Path
 import argparse
+import time
 
 parser = argparse.ArgumentParser(description="YOLO + UniK3D on video")
 parser.add_argument("--video", "-v", default="videos/Waterloo.mp4", help="Path to input video, default videos/Waterloo.mp4")
@@ -60,6 +61,7 @@ step = max(1, int(round(src_fps / max(1e-6, output_fps))))
 frame_idx = 0
 
 while True:
+    start_time = time.time()
     # skip frames cheaply
     if frame_idx % step != 0:
         ok = cap.grab()
@@ -79,7 +81,6 @@ while True:
         frame,
         conf=conf,
         verbose=False,
-        imgsz=imgsz,
         device=0 if device.type == "cuda" else "cpu"
     )[0]
 
@@ -122,6 +123,8 @@ while True:
 
     out.write(frame)
     frame_idx += 1
+    elapsed_time = time.time() - start_time
+    print(f"Processed frame {frame_idx} at {elapsed_time:.2f} seconds")
 
 cap.release()
 out.release()
