@@ -1,30 +1,37 @@
-# UniDepth + YOLO
+# UniK3D + YOLO
 
-This repository builds on the work of UniDepth. It is not affiliated with ETH Zurich. Please consider their original [repo](https://github.com/lpiccinelli-eth/UniDepth) and [paper](https://arxiv.org/abs/2502.20110) for more information.
+This repository builds on the work of UniK3D. It is not affiliated with ETH Zurich. Please consider their original [repo](https://github.com/lpiccinelli-eth/UniK3D) and [paper](https://arxiv.org/pdf/2503.16591) for more information.
+
+This follows from my original, more detailed implentation of [UniDepth](https://github.com/NikiMoelders/UniDepth--custom/blob/main/README.md?plain=1).
 
 ## Installation
 
-Requirements are not in principle hard requirements, but there might be some differences (not tested):
-- Linux
-- Python 3.10+ 
-- CUDA 11.8+
+The following worked for both Jetson and SSH. You may follow the setup of the original repo with CUDA 12.1 but unsure if it works for Jetson. I recommend starting with the environment of the previous repo.
 
 Install the environment needed to run UniK3D with:
+
 ```shell
 export VENV_DIR=<YOUR-VENVS-DIR>
-export NAME=unik3d
+export NAME=Unidepth
 
 python -m venv $VENV_DIR/$NAME
 source $VENV_DIR/$NAME/bin/activate
+```
+### Install UniDepth and dependencies, cuda >11.8 work fine, too.
+```shell
+pip install -e . --extra-index-url https://download.pytorch.org/whl/cu118
+```
+### Install Ultralytics for YOLO
 
-# Install UniK3D and dependencies (more recent CUDAs work fine)
-pip install -e . --extra-index-url https://download.pytorch.org/whl/cu121
+```shell
+pip install ultralytics
+```
 
-# Install Pillow-SIMD (Optional)
+### Install Pillow-SIMD (Optional)
 pip uninstall pillow
 CC="cc -mavx2" pip install -U --force-reinstall pillow-simd
 
-# Install KNN (for evaluation only)
+### Install KNN (for evaluation only)
 cd ./unik3d/ops/knn;bash compile.sh;cd ../../../
 ```
 
@@ -41,6 +48,25 @@ python ./scripts/demo.py
 If everything runs correctly, `demo.py` should print: `RMSE on 3D clouds for ScanNet sample: 21.9cm`.
 `demo.py` allows you also to save output information, e.g. rays, depth and 3D pointcloud as `.ply` file.
 
+## Depth Estimation + Object Detection
+
+- Scripts
+  - [depth_jetson.py](scripts/depth_jetson.py) is optimzed for the Jetson
+
+- YOLO Weights
+  - A fine-tuned YOLO model is employed- [yolo11n-uav-vehicle-bbox.pt](yolo_models/yolo11n-uav-vehicle-bbox.pt)
+
+- Inference
+
+```shell
+python scripts/depth_jetson.py
+```
+or similarly
+
+```shell
+python scripts/depth_jetson.py --video VIDEO_PATH --fps DESIRED_FPS --conf DESIRED_YOLO_CONFIDENCE 
+```
+The annotated video will save in the output folder. If running on an SSH, you will need to download the video onto your local machine to play it.
 
 ## Gradio Demo
 
